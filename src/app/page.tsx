@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
-import { File, mockFiles } from "../lib/mock-data"
-import { Folder, FileIcon, Upload, ChevronRight } from "lucide-react"
+import { ChevronRight, FileIcon, Folder, Upload } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 import { Button } from "~/components/ui/button"
+import { mockFiles } from "../lib/mock-data"
 
 export default function GoogleDriveClone() {
   const [currentFolder, setCurrentFolder] = useState<string | null>(null)
@@ -90,7 +90,7 @@ export default function GoogleDriveClone() {
                         {file.name}
                       </button>
                     ) : (
-                      <Link href={file.url || "#"} className="flex items-center text-gray-100 hover:text-blue-400">
+                      <Link href={file.url ?? "#"} className="flex items-center text-gray-100 hover:text-blue-400">
                         <FileIcon className="mr-3" size={20} />
                         {file.name}
                       </Link>
