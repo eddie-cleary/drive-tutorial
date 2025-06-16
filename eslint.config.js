@@ -7,21 +7,19 @@ const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
 
-export default tseslint.config(
-  {
-    ignores: [".next"],
-  },
+export default [
+  // Next.js compat config (legacy config converted to flat)
   ...compat.extends("next/core-web-vitals"),
+
+  // TypeScript eslint configs (flat mode)
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
+
+  // Custom config for TS files
   {
     files: ["**/*.ts", "**/*.tsx"],
-    plugins: {
-      drizzle,
-    },
-    extends: [
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-    ],
+    plugins: { drizzle },
     rules: {
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
@@ -48,7 +46,10 @@ export default tseslint.config(
       ],
     },
   },
+
+  // Global options
   {
+    ignores: [".next"],
     linterOptions: {
       reportUnusedDisableDirectives: true,
     },
@@ -58,4 +59,4 @@ export default tseslint.config(
       },
     },
   },
-);
+];
